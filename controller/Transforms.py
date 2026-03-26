@@ -151,6 +151,27 @@ def pose2rtde(pose):
     rtde_pose = position + rotvec.tolist()
     return rtde_pose
 
+def rtde2T(tcp_pose_rtde):
+    """
+    RTDE TCP位姿 [x, y, z, rx, ry, rz] -> 4x4 齐次矩阵 T_base_tool
+    其中 rx,ry,rz 为旋转向量（轴角）
+    """
+    tcp_pose_rtde = np.asarray(tcp_pose_rtde, dtype=float).reshape(6)
+    T = np.eye(4, dtype=float)
+    T[:3, :3] = R.from_rotvec(tcp_pose_rtde[3:]).as_matrix()
+    T[:3, 3] = tcp_pose_rtde[:3]
+    return T
+
+def pose2T(pose):
+    """
+    标准位姿 [x, y, z, roll, pitch, yaw] -> 4x4 齐次矩阵 T_base_tool
+    其中 roll,pitch,yaw 为欧拉角（弧度）
+    """
+    pose = np.asarray(pose, dtype=float).reshape(6)
+    T = np.eye(4, dtype=float)
+    T[:3, :3] = R.from_euler("xyz", pose[3:]).as_matrix()
+    T[:3, 3] = pose[:3]
+    return T
 
 # ==============================================================================
 # 测试示例

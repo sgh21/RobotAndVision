@@ -5,15 +5,15 @@ from utils.IntrinsicCalibrator import IntrinsicCalibrator
 def main():
     print(">>> 启动相机内参全自动标定流程 <<<")
     
-    # === 第一阶段：数据采集 ===
-    collector = DataCollector(cfg)
-    try:
-        collector.connect_hardware()
-        collector.execute_collection()
-    except Exception as e:
-        print(f"[ERROR] 数据采集阶段异常: {e}")
-    finally:
-        collector.disconnect_hardware()
+    # # === 第一阶段：数据采集 ===
+    # collector = DataCollector(cfg)
+    # try:
+    #     collector.connect_hardware()
+    #     collector.execute_collection()
+    # except Exception as e:
+    #     print(f"[ERROR] 数据采集阶段异常: {e}")
+    # finally:
+    #     collector.disconnect_hardware()
 
     # === 第二阶段：内参标定 ===
     print("\n>>> 开始内参核算与误差分析 <<<")

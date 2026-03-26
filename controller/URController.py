@@ -123,8 +123,8 @@ class UR10Controller:
             
             # 初始化控制接口 - 修改端口号为30004，与ur_control.py一致
             self._rtde_c = rtde_control.RTDEControlInterface(
-                self.ip
-                # self.rtde_frequency,
+                self.ip,
+                self.rtde_frequency,
                 # rtde_control.RTDEControlInterface.FLAG_USE_EXT_UR_CAP,
                 # 50002  
             )

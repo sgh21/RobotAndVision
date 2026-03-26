@@ -173,6 +173,29 @@ def pose2T(pose):
     T[:3, 3] = pose[:3]
     return T
 
+def T2pose(T):
+    """
+    4x4 齐次矩阵 T_base_tool -> 标准位姿 [x, y, z, roll, pitch, yaw]
+    其中 roll,pitch,yaw 为欧拉角（弧度）
+    """
+    T = np.asarray(T, dtype=float)
+    position = T[:3, 3]
+    rpy = R.from_matrix(T[:3, :3]).as_euler("xyz")
+    pose = position.tolist() + rpy.tolist()
+    return pose
+
+def T2rtde(T):
+    """
+    4x4 齐次矩阵 T_base_tool -> RTDE TCP位姿 [x, y, z, rx, ry, rz]
+    其中 rx,ry,rz 为旋转向量（轴角）
+    """
+    T = np.asarray(T, dtype=float)
+    position = T[:3, 3]
+    rotvec = R.from_matrix(T[:3, :3]).as_rotvec()
+    rtde_pose = position.tolist() + rotvec.tolist()
+    return rtde_pose
+
+
 def invT(T):
     """4x4 齐次变换求逆。"""
     T = np.asarray(T, dtype=float)

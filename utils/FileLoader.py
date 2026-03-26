@@ -3,7 +3,7 @@ import numpy as np
 from controller.Transforms import rtde2T, pose2T
 
 
-def load_pose_file(self, file_path):
+def load_pose_file(file_path):
     """
     优先读取 T_base_tool；
     其次兼容 tcp_pose_rtde；
@@ -24,3 +24,10 @@ def load_pose_file(self, file_path):
         raise KeyError("位姿文件中未找到 T_base_tool / tcp_pose_rtde / tool_pose_std / tool_poses")
 
     return filenames, T_base_tool
+
+def load_npz(npz_path):
+    data = np.load(npz_path, allow_pickle=True)
+    filenames, T_base_tool = load_pose_file(npz_path)
+    if "robot_joint" in  data:
+        joints = np.asarray(data["robot_joint"], dtype=float) 
+    return filenames, T_base_tool, joints

@@ -16,7 +16,7 @@ import numpy as np
 
 from controller.MVSControl import MVSController
 import config.PoseEvalConfig as cfg
-from utils.pnp_eval_core import (
+from algorithm.PnP import (
     build_gt_translation_mm,
     build_summary,
     draw_pose_debug,

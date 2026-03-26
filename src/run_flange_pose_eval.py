@@ -4,8 +4,8 @@ from pathlib import Path
 
 import cv2
 import numpy as np
-
-from utils import  pnp_eval_core
+    
+from algorithm import  PnP
 from config.SystemConfig import Camera, Coordinate
 from config.IntrinsicConfig import BOARD_GRID, SQUARE_SIZE
 from algorithm.FlangeEstimate import FlangeEstimate 
@@ -58,7 +58,7 @@ def run_eval(data_dir, image_dir_name="calibration_images", pose_file_name="robo
     data_dir = Path(data_dir)
     image_dir = data_dir / image_dir_name
     pose_file = data_dir / pose_file_name
-    pnp_solver = pnp_eval_core.estimate_pose_from_image
+    pnp_solver = PnP.estimate_pose_from_image
     flange_estimator = FlangeEstimate(mode="Vision").estimate_T_base_flange
 
     filenames, T_base_tool_all = load_pose_file(pose_file)
